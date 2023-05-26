@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Raleway Dots' rel='stylesheet'>
+  <title>Calculator</title>
+  <style>
+    body {
+      background-color: pink;
+      background: url(calc.gif) 0 0;
+    }
+    .calculator {
+      width: 700px;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 10px 0 10px rgba(3, 0, 0, 0.2);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 15px;
+      position: relative;
+      animation: borderAnimation 5s infinite alternate;
+    }
+
+    @keyframes borderAnimation {
+      0% {
+        border: 2px dashed pink;
+      }
+      50% {
+        border: 2px dashed purple;
+      }
+      100% {
+        border: 2px dashed pink;
+      }
+    }
+  
+   .title {
+      text-align: center;
+	font-family: 'Raleway Dots';
+      font-size: 36px;
+      color: pink;
+      font-weight: bold;
+      text-transform: uppercase;
+      animation: fadeAnimation 2s;
+      animation-fill-mode: forwards;
+      opacity: 0;
+    }
+    @keyframes fadeAnimation {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    input[type="button"] {
+      width: 100%;
+      margin-top: 5px;
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 50px;
+      background-color: pink;
+      color: white;
+      border: none;
+    }
+    input[type="button"]:hover {
+      background-color: #F8C8DC;
+    }
+    #result {
+      text-align: right;
+      font-size: 24px;
+      margin-bottom: 10px;
+      grid-column: 1 / span 4;
+      color: black;
+    }
+#unitSelect {
+background-color: #F8C8DC
+width: 100%;
+      margin-top: 5px;
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 50px;
+      background-color: pink;
+      color: white;
+      border: none;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="title">Calculator</div>
+    <input type="text" id="result" disabled>
+    <input type="button" value="1" onclick="appendToResult('1')">
+    <input type="button" value="2" onclick="appendToResult('2')">
+    <input type="button" value="3" onclick="appendToResult('3')">
+    <input type="button" value="+" onclick="appendToResult('+')">
+    <input type="button" value="4" onclick="appendToResult('4')">
+    <input type="button" value="5" onclick="appendToResult('5')">
+    <input type="button" value="6" onclick="appendToResult('6')">
+    <input type="button" value="-" onclick="appendToResult('-')">
+    <input type="button" value="7" onclick="appendToResult('7')">
+    <input type="button" value="8" onclick="appendToResult('8')">
+    <input type="button" value="9" onclick="appendToResult('9')">
+    <input type="button" value="*" onclick="appendToResult('*')">
+    <input type="button" value="0" onclick="appendToResult('0')">
+    <input type="button" value="." onclick="appendToResult('.')">
+    <input type="button" value="=" onclick="calculateResult()">
+    <input type="button" value="/" onclick="appendToResult('/')">
+   
+    
+    <input type="button" value="^" onclick="power()">
+    <input type="button" value="sin" onclick="sin()">
+    <input type="button" value="cos" onclick="cos()">
+    <input type="button" value="log" onclick="log()">
+    <select id="unitSelect">
+      <option value="cm">cm to inch</option>
+      <option value="inch">inch to cm</option>
+      <option value="kg">kg to lb</option>
+      <option value="lb">lb to kg</option>
+    </select>
+    <input type="button" value="Convert" onclick="convertUnits()">
+ <input type="button" value="Clear" onclick="clearResult()">
+  </div>
+
+  <script>
+    function appendToResult(value) {
+      document.getElementById("result").value += value;
+    }
+
+    function clearResult() {
+      document.getElementById("result").value = "";
+    }
+
+    function calculateResult() {
+      var result = document.getElementById("result").value;
+      var calculatedResult = eval(result);
+      document.getElementById("result").value = calculatedResult;
+    }
+
+    function sqrt() {
+      var result = document.getElementById("result").value;
+      var calculatedResult = Math.sqrt(result);
+      document.getElementById("result").value = calculatedResult;
+    }
+
+    function power() {
+      var result = document.getElementById("result").value;
+      var calculatedResult = eval(result);
+      document.getElementById("result").value = calculatedResult;
+    }
+
+    function sin() {
+      var result = document.getElementById("result").value;
+      var calculatedResult = Math.sin(result);
+      document.getElementById("result").value = calculatedResult;
+    }
+
+    function cos() {
+      var result = document.getElementById("result").value;
+      var calculatedResult = Math.cos(result);
+      document.getElementById("result").value = calculatedResult;
+    }
+
+    function log() {
+      var result = document.getElementById("result").value;
+      var calculatedResult = Math.log(result);
+      document.getElementById("result").value = calculatedResult;
+    }
+
+    function convertUnits() {
+      var unitSelect = document.getElementById("unitSelect");
+      var selectedUnit = unitSelect.options[unitSelect.selectedIndex].value;
+      var result = document.getElementById("result").value;
+
+      var convertedResult;
+      switch (selectedUnit) {
+        case "cm":
+          convertedResult = parseFloat(result) * 0.393701;
+          break;
+        case "inch":
+          convertedResult = parseFloat(result) * 2.54;
+          break;
+        case "kg":
+          convertedResult = parseFloat(result) * 2.20462;
+          break;
+        case "lb":
+          convertedResult = parseFloat(result) * 0.453592;
+          break;
+      }
+
+      document.getElementById("result").value = convertedResult;
+    }
+  </script>
+</body>
+</html>
